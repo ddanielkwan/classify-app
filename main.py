@@ -1,5 +1,5 @@
 import pandas as pd
-import nltk
+import nltk #natural language 
 from PIL import Image
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 import matplotlib.pyplot as plt
@@ -69,23 +69,23 @@ def visualize(df: pd.DataFrame) -> None:
     values = ['not spam', 'spam']
     df['spam'].value_counts().plot(kind='bar')
     plt.xticks(df['spam'].unique(), values)
-    plt.axis("off")
     plt.show()
 #split our data set
 x_train, x_test, y_train, y_test = train_test_split(df['text'], df['spam'], test_size = 0.3)
 
 #set lemmatize
 lemmatizer = nltk.WordNetLemmatizer() #my accuracy decreases when I change to lemma
-x_train = [lemmatizer.lemmatize(word) for word in x_train]
+x_train = [lemmatizer.lemmatize(word) for word in x_train] #sung -> sing
 #feature extraction tf idf vectorize
 global vectorizer
+#term frequency x inverse document frequenct
 vectorizer = TfidfVectorizer(input = x_train, lowercase = True, stop_words = 'english')
-
+#shape of vectorizer is the shape on x_train 1000
 tfidf_xtrain = vectorizer.fit_transform(x_train) #gives tf idf vector for x train
-tfidf_xtest = vectorizer.transform(x_test) #gives tf idf for x trest
+tfidf_xtest = vectorizer.transform(x_test) #gives tf idf for x trest # 300
 
 # train the model using naive bayes
-classifier = MultinomialNB()
+classifier = MultinomialNB() #model
 classifier.fit(tfidf_xtrain, y_train)
 actual = y_test.to_list()
 print("classifier accuracy {:.2f}%".format(classifier.score(tfidf_xtest, y_test) * 100))
@@ -108,8 +108,7 @@ print("SVM Accuracy Score -> ",accuracy_score(predictions, y_test)*100)
 results2 = confusion_matrix(y_test.to_list(), predictions)
 print(results2)
 
-
-def get_input(text) -> int:
+def get_input(text:str) -> int:
     # text =input("Enter email: ")
     play_speech(text) # can probably add "enter blah blah blah, this is classified as ___"
     vectorized_string = vectorizer.transform([text])
@@ -117,7 +116,6 @@ def get_input(text) -> int:
         return 0
     else:
         return 1
-
 
 # visualize(df)
 # get_input(vectorizer, svm_model)

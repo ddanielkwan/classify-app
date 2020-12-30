@@ -1,56 +1,80 @@
-from tkinter import Tk, Button, Frame, Label, Text, Entry, INSERT, END, PhotoImage, Image, messagebox
-from main import get_input
+from tkinter import Tk, Button, Frame, Label, Text, Entry, INSERT, END, PhotoImage, messagebox, LEFT, FLAT, GROOVE, BOTTOM, BOTH
+from PIL import Image, ImageTk
+# from main import get_input
 class main(Frame):
     def __init__(self,master=None):
         Frame.__init__(self, master)
         self.name = "Classifer Application"
         self.master = master
-        self.master["bg"] = "#A4A4A4"
-        self.pack()
+        self.master["bg"] = "black"
         self.master.title("Classifier Application")
         self.master.iconbitmap(r'images/magnify.ico')
         self.master.geometry("1000x700")
-        self.add_buttons()
         self.add_label()
         self.add_search_bar()
+        self.add_buttons()
 
     def onClick(self):
-        #for debugging
+        #For debugging
         print("Clicked")
     
     def add_search_bar(self):
-        self.search_bar = Entry(self.master, bg = "#A4A4A4", width = 50, font=("Times New Roman", 18))
-        self.search_bar.pack(ipady=10)
-        get_search_results = Button(self.master, text="Get search", command=self.retrieve_input)
-        get_search_results.pack() #FIX
+        self.search_bar = Entry(self.master, bg = "#1F417B", width = 42, font=("Times New Roman", 22))
+        self.search_bar.place(x=150,y=100)
+        self.get_search_results = Button(self.master, text="Enter", command=self.retrieve_input, width=10, height = 2, bg="#1F417B")
+        self.get_search_results.configure(fg='white',font=("Courier", 10))
+        self.get_search_results.place(x=770,y=97.7) #FIX
     
     def retrieve_input(self):
         result = self.search_bar.get()
-        spamResult = get_input(result)
-
-        messagebox.showinfo("Result", "Not spam" if spamResult == 0 else "Spam")
+        # spamResult = get_input(result)
+        # messagebox.showinfo("Result", "Not spam" if spamResult == 0 else "Spam")
         print(result)
 
     def add_label(self):
         """Function to add the app name onto the GUI"""
-        appName = Label(self.master, text=self.name, bg = "#A4A4A4")
-        appName.config(font=("Courier", 44))
-        appName.pack()
-        authorName = Label(self.master, text="By Daniel Kwan", bg = "#A4A4A4")
-        authorName.config(font=("Courier", 10))
-        authorName.place(x=870,y=670)
+        self.bgPath = 'images/bg.PNG'
+        self.bg = ImageTk.PhotoImage(Image.open(self.bgPath))
+        icon_size = Label(self.master)
+        icon_size.image = self.bg
+        icon_size.configure(image=self.bg)
+        icon_size.pack()
+  
+        self.appName = Label(self.master, text=self.name, bg = "#1F417B")
+        self.appName.config(fg='white',font=("Courier", 44, "bold"))
+        self.appName.place(x=132,y=10)
+        self.authorName = Label(self.master, text="By Daniel Kwan", bg = "#1F417B")
+        self.authorName.config(font=("Courier", 10))
+        self.authorName.place(x=870,y=670)
+     
 
     def add_buttons(self):
         """Function to add buttons for applications"""
-        emailButton = Button(self.master, text="Classify Email",
-                            width=35, height = 10,command=self.onClick, bg="#A6CFE8")
-        twitterButton = Button(self.master, text="Classify Tweet",
-                            width=35, height = 10,command=self.onClick, bg="#A6CFE8")
-        facebookButton = Button(self.master, text="Classify Post",
-                            width=35, height = 10,command=self.onClick, bg="#A6CFE8")
-        emailButton.place(x=50,y=300)
-        twitterButton.place(x=370,y=300)
-        facebookButton.place(x=685,y=300)
+        self.mailPhoto=PhotoImage(file="images/mail.png")
+        emailButton=Button(self.master, height = 150, command=self.onClick, borderwidth=3)
+        emailButton.config(image=self.mailPhoto, bg='#7990B7', font =("Courier", 20, "bold"))
+        emailButton.configure(activebackground="#33B5E5")
+        emailButton.place(x=40,y=500)
+
+        self.twitterPhoto=PhotoImage(file="images/twitter.png")
+        twitterButton=Button(self.master, height = 150, width=250, command=self.onClick, borderwidth=3)
+        twitterButton.config(image=self.twitterPhoto, bg='#7990B7', font =("Courier", 20, "bold"))
+        twitterButton.configure(activebackground="#33B5E5")
+        twitterButton.place(x=360,y=500)
+
+        self.fbPhoto=PhotoImage(file="images/facebook.png")
+        fbButton=Button(self.master, height = 150, width=250, command=self.onClick, borderwidth=3)
+        fbButton.config(image=self.fbPhoto, bg='#3b5998', font =("Courier", 20, "bold"))
+        fbButton.configure(activebackground="#33B5E5")
+        fbButton.place(x=700,y=500)
+        
+        # self.image = Image.open("images/ok.png")
+        # self.loadimage = ImageTk.PhotoImage(self.image)
+        # self.roundedbutton = Button(self, image=self.loadimage)
+        # self.roundedbutton["bg"] = "#6883bc"
+        # self.roundedbutton["border"] = "0"
+        # self.roundedbutton.configure(activebackground= "#33B5E5")
+        # self.roundedbutton.place(x=40,y=450)
         
 root = Tk()
 run = main(root)
