@@ -12,11 +12,7 @@ from sklearn.metrics import confusion_matrix, accuracy_score
 from utils import get_polly_client
 from pygame import mixer
 import os
-<<<<<<< HEAD
-"""Program to preform exploratory data analysis on datasets/emails.csv data set."""
-=======
 """Program to preform exploratory data analysis on emails.csv data set."""
->>>>>>> c790d8b0de90739e7041137d7ed6c9fda45e5c2b
 global FILE
 FILE = 'output.mp3'
 def play_speech(text:str) -> None:
@@ -37,11 +33,7 @@ def play_speech(text:str) -> None:
 
 #1 is spam, 0 is not spam
 #read our data set into a pandas data frame
-<<<<<<< HEAD
 df = pd.read_csv("datasets/emails.csv")
-=======
-df = pd.read_csv("emails.csv")
->>>>>>> c790d8b0de90739e7041137d7ed6c9fda45e5c2b
 print("Spam, Count")
 print(df['spam'].value_counts())
 print("-------") #we can clearly see that there is not an even amount of spam vs not spam, might be biased
