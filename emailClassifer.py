@@ -12,6 +12,7 @@ from sklearn.metrics import confusion_matrix, accuracy_score
 from utils import get_polly_client
 from pygame import mixer
 import os
+"""Program to preform exploratory data analysis on emails.csv data set."""
 global FILE
 FILE = 'output.mp3'
 def play_speech(text:str) -> None:
@@ -30,7 +31,6 @@ def play_speech(text:str) -> None:
     mixer.quit()
     os.remove(FILE)
 
-"""Program to preform exploratory data analysis on emails.csv data set."""
 #1 is spam, 0 is not spam
 #read our data set into a pandas data frame
 df = pd.read_csv("emails.csv")
@@ -63,6 +63,7 @@ def visualize(df: pd.DataFrame) -> None:
     plt.show()
 
     plt.imshow(not_spam_cloud, interpolation="bilinear")
+    plt.axis("off")
     plt.show()
     # add some graphs here
     #bar
@@ -101,7 +102,6 @@ global svm_model
 svm_model = svm.SVC(C=1.0, kernel='linear', degree = 2, gamma='auto')
 svm_model.fit(tfidf_xtrain, y_train)
 
-
 predictions = svm_model.predict(tfidf_xtest)
 # Use accuracy_score function to get the accuracy
 print("SVM Accuracy Score -> ",accuracy_score(predictions, y_test)*100)
@@ -118,7 +118,7 @@ def get_input(text:str) -> int:
         return 1
 
 # visualize(df)
-# get_input(vectorizer, svm_model)
+# r = get_input("hello")
 
 #To do:
 #get more email data, do twitter and facebook create GUI, implement aws polly, aws transcribe
