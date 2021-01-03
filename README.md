@@ -17,3 +17,5 @@ Created visualizations on email data, word clouds, bar graphs ..
 - Add AWS transcribe to perform speech to text
 - Fix a few buttons, add better pictures
 - add facebook post clasifier
+
+![Chess](/images/ss.PNG)
